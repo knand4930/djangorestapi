@@ -9,6 +9,7 @@ import uuid
 from .serializers import *
 from .models import *
 from rest_framework import viewsets 
+from rest_framework import permissions
 
 # Create your views here.
 
@@ -31,8 +32,11 @@ class RegistrationAPIView(generics.GenericAPIView):
         
         return Response({"Errors": serializers.errors}, status=status.HTTP_400_BAD_REQUEST)
     
+
+    
     
 class ProductViewset(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = Products.objects.all()
     serializer_class = ProductsSerializer
     
